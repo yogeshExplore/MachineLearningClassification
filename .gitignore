@@ -3,3 +3,5 @@ data/processed_data
 data/trained_data
 data/final_data
 venv
+*.pyc
+
