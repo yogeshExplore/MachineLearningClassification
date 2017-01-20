@@ -41,9 +41,16 @@ for f in raw_data_file_list_spam:
 
 log.print_log('Reading Done for Training Data')
 log.print_log('Extracting Features, Fit and transform ( Making data ready for training)')
-tfidf = TfidfVectorizer()
-X_trained_matrix_sparse = tfidf.fit_transform(training_X) # Always need one Dimensional
+
+"""Accuracy 96.923. Time - within a sec """
+# tfidf = TfidfVectorizer()
+
+""" 98.846 accuracy . Approx 2 % gain in accuracy with n gram. Time - 9 sec"""
+tfidf = TfidfVectorizer(analyzer='char',ngram_range=(5, 6))
+
+X_trained_matrix_sparse = tfidf.fit_transform(training_X)  # Always need one Dimensional
 log.print_log('Extracting Features, Fit and transform ( Making data ready for training) finished')
+
 """
 Visibility code
 features = tfidf.get_feature_names()
@@ -53,6 +60,7 @@ log.print_log('A glimpse of data. You might not understand it')
 tdf = pd.DataFrame(data=X_trained_matrix_dense, columns=features)
 print tdf.head(10)
 """
+
 log.print_log('***********************|||||||**********************')
 log.print_log("TRAINING MODEL")
 log.print_log('Using Naive Bayes Classification. - Multinomial Naive Bayes')
@@ -75,10 +83,12 @@ for f in raw_data_file_list_ham:
 		test_X.append(file.read())
 		test_y.append(0)
 
+
 for f in raw_data_file_list_spam:
 	with open(f,'r') as file:
 		test_X.append(file.read())
 		test_y.append(1)
+
 
 log.print_log('Reading Done of testing Data')
 log.print_log('Extracting Features and Fit( Making data ready for testing)')
