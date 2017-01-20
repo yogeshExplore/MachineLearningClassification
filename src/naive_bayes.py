@@ -48,7 +48,7 @@ log.print_log('Extracting Features, Fit and transform ( Making data ready for tr
 # tfidf = TfidfVectorizer()
 
 """ 98.846 accuracy . Approx 2 % gain in accuracy with n gram. Time - 9 sec """
-tfidf = TfidfVectorizer(analyzer='char', ngram_range=(5, 6)git )
+tfidf = TfidfVectorizer(analyzer='char', ngram_range=(5, 6))
 
 X_trained_matrix_sparse = tfidf.fit_transform(training_X)  # Always need one Dimensional
 log.print_log('Extracting Features, Fit and transform ( Making data ready for training) finished')
