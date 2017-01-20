@@ -2,4 +2,5 @@ virtualenv venv
 pip install pandas
 pip install sklearn
 
-
+Please see this video if you do not know about how to play with pandas , scipy, numpy and sklearn.
+https://www.youtube.com/watch?v=ZiKMIuYidY0
