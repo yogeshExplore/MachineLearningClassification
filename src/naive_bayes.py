@@ -29,11 +29,13 @@ raw_data_file_list_spam = [os.path.join(raw_data_path,fc) for fc in [f for f in 
 training_X = []
 training_y = []
 
+""" 0 is ham , normal mail , no-spam """
 for f in raw_data_file_list_ham:
 	with open(f,'r') as file:
 		training_X.append(file.read())
 		training_y.append(0)
 
+""" 1 is spam """
 for f in raw_data_file_list_spam:
 	with open(f,'r') as file:
 		training_X.append(file.read())
@@ -45,8 +47,8 @@ log.print_log('Extracting Features, Fit and transform ( Making data ready for tr
 """Accuracy 96.923. Time - within a sec """
 # tfidf = TfidfVectorizer()
 
-""" 98.846 accuracy . Approx 2 % gain in accuracy with n gram. Time - 9 sec"""
-tfidf = TfidfVectorizer(analyzer='char',ngram_range=(5, 6))
+""" 98.846 accuracy . Approx 2 % gain in accuracy with n gram. Time - 9 sec """
+tfidf = TfidfVectorizer(analyzer='char', ngram_range=(5, 6)git )
 
 X_trained_matrix_sparse = tfidf.fit_transform(training_X)  # Always need one Dimensional
 log.print_log('Extracting Features, Fit and transform ( Making data ready for training) finished')
@@ -107,6 +109,30 @@ confusion = metrics.confusion_matrix(test_y,y_predict_class)
 log.print_log('Confusion is - ' + str(confusion))
 log.print_log('*********************||| END |||********************')
 
+"""
+# Analysing results Code
+ham_c = classifier_mnb.feature_count_[0,:]
+spam_c = classifier_mnb.feature_count_[1,:]
+analysing_df= pd.DataFrame({'feature': tfidf.get_feature_names(), 'ham': ham_c, 'spam': spam_c})
+print analysing_df.head()
+print analysing_df.sample(100, random_state=9)
+"""
+
+"""
+Notes
+1) Results better if every class has equal data
+2) n grams affects the accuracy significantly
+3) tfidf = TfidfVectorizer(analyzer='word',ngram_range=(1, 2), stop_words='english') = 97.307
+4) tfidf = TfidfVectorizer(analyzer='word',ngram_range=(5, 6), stop_words='english') = 76.53
+5) tfidf = TfidfVectorizer(analyzer='char', ngram_range=(4, 6), stop_words='english') = 98.461
+6) tfidf = TfidfVectorizer(analyzer='char', ngram_range=(5, 6), stop_words='english', min_df=1, max_df=10) = 97.30
+7) tfidf = TfidfVectorizer(analyzer='char', ngram_range=(5, 6), stop_words='english', min_df=5, max_df=100) = 98.076
+8) tfidf = TfidfVectorizer(analyzer='char', ngram_range=(5, 6), stop_words='english', min_df=10, max_df=1000) = 98.846
+9) tfidf = TfidfVectorizer(analyzer='char', ngram_range=(5, 6), stop_words='english', min_df=20, max_df=1000) = 98.461
+10) tfidf = TfidfVectorizer(analyzer='char', ngram_range=(5, 6), stop_words='english', min_df=15) = 98.846
+11) Even adding 2-3 new features can improve the model, sometimes
+
+"""
 
 
 
