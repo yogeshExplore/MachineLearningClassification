@@ -1,6 +1,9 @@
-virtualenv venv
+Install virtualenv ( optional )
+virtualenv venv ( if using virtual env )
+source venv/bin/activate ( if using virtual env )
+
 pip install pandas
 pip install sklearn
+pip install matplotlib ( For plotting results )
+pip install sqlalchemy
 
-Please see this video if you do not know about how to play with pandas , scipy, numpy and sklearn.
-https://www.youtube.com/watch?v=ZiKMIuYidY0

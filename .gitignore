@@ -4,4 +4,7 @@ data/trained_data
 data/final_data
 venv
 *.pyc
+src/database
+src/database/*
+src/secure_params.json
 
